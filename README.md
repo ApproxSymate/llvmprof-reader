@@ -14,3 +14,4 @@ gcc -L<llvm-3.3-library-path> <program>.pp.o -lprofile_rt
 LD_LIBRARY_PATH=<llvm-3.3-library-path> ./a.out
 llvmprof-reader llvmprof.out
 ```
+Information on the `llvmprof.out` format for path profiling can be found [here](http://llvm.org/pubs/2010-12-Preuss-PathProfiling.pdf).
