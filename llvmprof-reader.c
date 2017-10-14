@@ -69,7 +69,7 @@ int read_unsigned(FILE *fp, unsigned *result) {
   int c;
   *result = 0;
 
-  unsigned shamt = 24;
+  unsigned shamt = 0;
   
   for (int i = 0; i < 4; ++i) {
     c = fgetc(fp);
@@ -83,7 +83,7 @@ int read_unsigned(FILE *fp, unsigned *result) {
 
     /* Assuming little endian */
     (*result) |= (c << shamt);
-    shamt -= 8;
+    shamt += 8;
   }
 
   return 0;
