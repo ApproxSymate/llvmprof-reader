@@ -9,7 +9,6 @@ Contains `llvmprof-reader` which is a reader of llvmprof.out path profile output
 clang-3.3 -emit-llvm -O0 -c <program>.c -o <program>.bc
 opt-3.3 -insert-path-profiling -path-profile-early-termination -o <program>.pp.bc <program>.bc
 llc-3.3 -filetype=obj <program>.pp.bc -o <program>.pp.o
-gcc <program>.pp.o
 gcc -L<llvm-3.3-library-path> <program>.pp.o -lprofile_rt
 LD_LIBRARY_PATH=<llvm-3.3-library-path> ./a.out
 llvmprof-reader llvmprof.out
