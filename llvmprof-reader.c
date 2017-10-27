@@ -32,13 +32,13 @@ int main(int argc, char **argv) {
   unsigned path_info;
   flag = read_unsigned(fp, &path_info);
   if (flag)
-    error_exit("Unexpected end of file");
+    error_exit("Unexpected end of file when reading path info");
   printf("Path info: %08x\n", path_info);
 
   unsigned num_functions;
   flag = read_unsigned(fp, &num_functions);
   if (flag)
-    error_exit("Unexpected end of file");
+    error_exit("Unexpected end of file when reading number of functions");
   printf("Number of functions: %d\n", num_functions);
 
   unsigned data1, data2;
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
       break;
     flag = read_unsigned(fp, &data2);
     if (flag)
-      error_exit("Unexpected end of file");
+      error_exit("Unexpected end of file when reading 2nd 4-byte");
     printf("data pair: %08x %08x\n", data1, data2);
   }
   
@@ -70,7 +70,7 @@ int read_unsigned(FILE *fp, unsigned *result) {
   *result = 0;
 
   unsigned shamt = 0;
-  
+
   for (int i = 0; i < 4; ++i) {
     c = fgetc(fp);
     
@@ -78,7 +78,7 @@ int read_unsigned(FILE *fp, unsigned *result) {
       if (i == 0) {
 	return -1;
       }
-      error_exit("Unexpected end of file");
+      error_exit("Unexpected end of file in the middle of 4-byte");
     }
 
     /* Assuming little endian */
