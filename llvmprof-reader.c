@@ -29,29 +29,57 @@ int main(int argc, char **argv) {
 
   int flag;
 
-  unsigned path_info;
-  flag = read_unsigned(fp, &path_info);
-  if (flag)
-    error_exit("Unexpected end of file when reading path info");
-  printf("Path info: %08x\n", path_info);
-
-  unsigned num_functions;
-  flag = read_unsigned(fp, &num_functions);
-  if (flag)
-    error_exit("Unexpected end of file when reading number of functions");
-  printf("Number of functions: %d\n", num_functions);
-
-  unsigned data1, data2;
   while (1) {
-    flag = read_unsigned(fp, &data1);
-    if (flag)
+    unsigned dummy;
+
+    if (read_unsigned(fp, &dummy) || read_unsigned(fp, &dummy) ||
+        read_unsigned(fp, &dummy) || read_unsigned(fp, &dummy) ||
+        read_unsigned(fp, &dummy))
       break;
-    flag = read_unsigned(fp, &data2);
+
+    unsigned profile_type;
+    flag = read_unsigned(fp, &profile_type);
     if (flag)
-      error_exit("Unexpected end of file when reading 2nd 4-byte");
-    printf("data pair: %08x %08x\n", data1, data2);
+      error_exit("Unexpected end of file when reading profile type");
+
+    if (profile_type != 5)
+      error_exit("Unknown file format");
+
+    unsigned num_functions;
+    flag = read_unsigned(fp, &num_functions);
+    if (flag)
+      error_exit("Unexpected end of file when reading number of functions");
+
+    printf("\nPath profile with %d function(s)\n", num_functions);
+
+    for (unsigned i = 0; i < num_functions; ++i) {
+      unsigned function_no, entries_num;
+
+      flag = read_unsigned(fp, &function_no);
+      if (flag)
+        error_exit("Unexpected end of file when reading function number");
+
+      flag = read_unsigned(fp, &entries_num);
+      if (flag)
+        error_exit("Unexpected end of file when reading number of entries");
+
+      printf("Function no. (entries): %d (%d)\n", function_no, entries_num);
+
+      for (unsigned j = 0; j < entries_num; ++j) {
+        unsigned pathNumber, pathCounter;
+        flag = read_unsigned(fp, &pathNumber);
+        if (flag)
+          error_exit("Unexpected end of file when reading path number");
+
+        flag = read_unsigned(fp, &pathCounter);
+        if (flag)
+          error_exit("Unexpected end of file when reading path counter");
+
+        printf("Path number (count): %d (%d)\n", pathNumber, pathCounter);
+      }
+    }
   }
-  
+
   fclose(fp);
   return 0;
 }
