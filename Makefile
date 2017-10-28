@@ -21,16 +21,7 @@ ${LLVMPROF}:
 	${LLVM_3_3_DIR}/bin/opt -insert-path-profiling -path-profile-early-termination -o example.pp.bc example.bc
 	${LLVM_3_3_DIR}/bin/llc -filetype=obj example.pp.bc -o example.pp.o
 	${CC} -L${LLVM_3_3_DIR}/lib example.pp.o -lprofile_rt -o example
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ a
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ a
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ x
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ d
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ a
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ g
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ a
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ z
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ i
-	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@ m
+	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@
 
 clean:
 	rm -f *.o ${TARGET} example *~ *.bc *.out

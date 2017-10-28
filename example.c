@@ -4,27 +4,35 @@
 
 #include <stdio.h>
 
+int generate_paths(unsigned char c);
+
 int main(int argc, char **argv) {
-  if (argc < 2) {
-    fprintf(stderr, "Exactly one command-line argument expected\n");
-    return 1;
-  }
+  generate_paths('a');
+  generate_paths('A');
+  generate_paths('x');
+  generate_paths('d');
+  generate_paths('0');
+  generate_paths('G');
+  generate_paths('a');
+  generate_paths('z');
+  generate_paths('i');
+  generate_paths('9');
+}
 
-  unsigned char c = argv[1][0];
-
+int generate_paths(unsigned char c) {
   if (c < 128) {
     if (c < 64) {
       if (c < 32) {
 	if (c < 16) {
-	  printf("path1\n");
+	  printf("path 1\n");
 	} else {
-	  printf("path2\n");
+	  printf("path 2\n");
 	}
       } else {
 	if (c < 48) {
-	  printf("path3\n");
+	  printf("path 3\n");
 	} else {
-	  printf("path4\n");
+	  printf("path 4\n");
 	}
       }
     } else {
