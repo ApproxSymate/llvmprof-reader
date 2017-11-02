@@ -24,4 +24,4 @@ ${LLVMPROF}:
 	LD_LIBRARY_PATH=${LLVM_3_3_DIR}/lib ./example -llvmprof-output $@
 
 clean:
-	rm -f *.o ${TARGET} example *~ *.bc *.out
+	rm -f *.o ${TARGET} example *~ *.bc *.out *.ll
